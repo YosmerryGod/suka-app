@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <!-- [ADDED] SUKA Messenger frontend shell -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f6fb">
+  <meta name="description" content="SUKA Messenger — ruang percakapan yang lebih sederhana.">
+  <title>SUKA Messenger</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <main class="app-shell" id="app">
+    <aside class="rail" aria-label="Navigasi utama">
+      <a class="brand-mark" href="#" aria-label="SUKA Messenger">
+        <span class="brand-orb"><span></span><span></span></span>
+      </a>
+      <nav class="rail-nav" aria-label="Menu">
+        <button class="rail-button is-active" type="button" aria-label="Percakapan" title="Percakapan" data-view="chats">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H7l-3.5 2v-5.2A7.5 7.5 0 1 1 20 11.5Z"/></svg>
+        </button>
+        <button class="rail-button" type="button" aria-label="Kontak" title="Kontak" data-view="contacts">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19c.4-3 2.4-4.7 5.5-4.7s5.1 1.7 5.5 4.7M16 7.2a3 3 0 0 1 0 5.8M16.5 15c2.4.4 3.7 1.7 4 4"/></svg>
+        </button>
+        <button class="rail-button" type="button" aria-label="Arsip" title="Arsip" data-view="archive">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v13H4zM3 4h18v3H3zM9 11h6"/></svg>
+        </button>
+      </nav>
+      <div class="rail-bottom">
+        <button class="rail-button" type="button" id="theme-toggle" aria-label="Ganti tema" title="Ganti tema">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.2A8.5 8.5 0 0 1 8.8 4 8.5 8.5 0 1 0 20 15.2Z"/></svg>
+        </button>
+        <button class="profile-button" type="button" id="profile-button" aria-label="Profil akun">E</button>
+      </div>
+    </aside>
+
+    <section class="inbox-panel" aria-label="Daftar percakapan">
+      <header class="inbox-header">
+        <div>
+          <p class="eyebrow">RUANG TERHUBUNG</p>
+          <h1>Pesan<span class="heading-dot">.</span></h1>
+        </div>
+        <button class="icon-button new-chat-button" id="new-chat" type="button" aria-label="Percakapan baru" title="Percakapan baru">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+      </header>
+
+      <label class="search-box">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.5 4.5"/></svg>
+        <input id="chat-search" type="search" placeholder="Cari percakapan..." autocomplete="off" aria-label="Cari percakapan">
+        <kbd>/</kbd>
+      </label>
+
+      <div class="filter-row" role="group" aria-label="Filter percakapan">
+        <button class="filter-chip is-selected" type="button" data-filter="all">Semua</button>
+        <button class="filter-chip" type="button" data-filter="unread">Belum dibaca</button>
+        <button class="filter-chip" type="button" data-filter="groups">Grup</button>
+      </div>
+
+      <div class="conversation-heading">
+        <span>TERBARU</span>
+        <span id="conversation-count">04</span>
+      </div>
+      <div class="conversation-list" id="conversation-list" role="list"></div>
+      <div class="inbox-footer">
+        <span class="status-dot"></span>
+        <span>Pesan pribadi, ruang milikmu.</span>
+      </div>
+    </section>
+
+    <section class="chat-panel" aria-label="Ruang percakapan">
+      <div class="chat-empty" id="chat-empty" hidden>
+        <div class="empty-art">
+          <span class="empty-orb"><i></i><i></i></span>
+        </div>
+        <h2>Mulai dari sebuah cerita.</h2>
+        <p>Pilih percakapan di samping untuk melanjutkan obrolan.</p>
+        <span class="empty-caption">SUKA MESSENGER · PREVIEW</span>
+      </div>
+
+      <div class="active-chat" id="active-chat">
+        <header class="chat-header">
+          <button class="icon-button mobile-back" id="mobile-back" type="button" aria-label="Kembali ke daftar pesan">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <div class="avatar avatar-large" id="chat-avatar">N</div>
+          <div class="chat-person">
+            <h2 id="chat-name">Nadia Putri</h2>
+            <p id="chat-status"><span class="online-dot"></span> Aktif sekarang</p>
+          </div>
+          <div class="chat-actions">
+            <button class="icon-button" type="button" id="search-in-chat" aria-label="Cari dalam percakapan" title="Cari dalam percakapan">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.5 4.5"/></svg>
+            </button>
+            <button class="icon-button" type="button" id="chat-info" aria-label="Info percakapan" title="Info percakapan">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5h.01"/></svg>
+            </button>
+          </div>
+        </header>
+
+        <div class="message-area" id="message-area" aria-live="polite" aria-label="Pesan"></div>
+
+        <form class="composer" id="message-form">
+          <button class="icon-button composer-action" type="button" id="attach-button" aria-label="Lampirkan file" title="Lampirkan file">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8.5 12.5 6.8-6.8a3.2 3.2 0 0 1 4.5 4.5l-8.5 8.5a5 5 0 0 1-7.1-7.1l8.2-8.2"/></svg>
+          </button>
+          <input id="attachment-input" type="file" hidden>
+          <label class="composer-field">
+            <input id="message-input" type="text" placeholder="Tulis pesan..." autocomplete="off" aria-label="Tulis pesan">
+            <span class="composer-hint">Enter untuk kirim</span>
+          </label>
+          <button class="send-button" type="submit" aria-label="Kirim pesan">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 3-7.2 18-3.9-7.9L2 9.2 21 3Z"/><path d="M9.9 13.1 21 3"/></svg>
+          </button>
+        </form>
+        <p class="composer-note">Preview lokal · Pesan tidak dikirim ke WhatsApp</p>
+      </div>
+    </section>
+  </main>
+
+  <dialog class="info-dialog" id="info-dialog" aria-labelledby="dialog-title">
+    <div class="dialog-top">
+      <span class="dialog-mark"><span class="brand-orb"><span></span><span></span></span></span>
+      <button class="icon-button" type="button" id="close-dialog" aria-label="Tutup">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <p class="eyebrow">SUKA MESSENGER</p>
+    <h2 id="dialog-title">Ruang yang terasa dekat.</h2>
+    <p id="dialog-copy">Ini adalah prototype frontend. Semua percakapan dan pesan menggunakan data contoh di browser.</p>
+    <button class="dialog-confirm" type="button" id="dialog-confirm">Mengerti</button>
+  </dialog>
+</body>
+</html>
